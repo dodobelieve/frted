@@ -1,3 +1,63 @@
-<p>
-  reqamfr works!
-</p>
+<h2>window.requestAnimationFrame() </h2>
+<span>请求动画帧，该方法需要传入一个回调函数作为参数，该回调函数会在浏览器下一次重绘之前执行。</span><br />
+<span>与setTimeout区别：</span><br />
+<span>setTimeout：在设置的时间间隔后执行回调</span><br />
+<span>requestAnimationFrame：浏览器下次重绘前执行回调，执行时机与设备刷新频率相关。</span><br />
+<br /><br />
+<span class="sp-tip">setTimeout设置滚动</span><br />
+<pre>
+  <code>@ViewChild("timeout", &#123; static: false &#125;) timeoutEl: ElementRef;</code>
+  <code>timeoutPosition: number = 0;</code>
+  <code>timer: any;</code>
+  <code>moveBySetTimeout() &#123;</code>
+  <code class="tab1">let self = this;</code>
+  <code class="tab1">if (self.timer)</code>
+  <code class="tab2">clearTimeout(self.timer);</code>
+  <code class="tab1">self.timer = setTimeout(() => &#123; </code>
+  <code class="tab2">self.moveTimeoutDiv(self);</code>
+  <code class="tab1">&#125;, 10);</code>
+  <code>&#125;</code>
+  <code>&nbsp;</code>
+  <code>moveTimeoutDiv(self: any) &#123;</code>
+  <code class="tab1">self.timeoutPosition++;</code>
+  <code class="tab1">if (self.timeoutPosition == 350) &#123;</code>
+  <code class="tab2">self.timeoutPosition = 0;</code>
+  <code class="tab1">&#125;</code>
+  <code class="tab1">self.timeoutEl.nativeElement.style.marginLeft = `$&#123;self.timeoutPosition&#125;px`;</code>
+  <code class="tab1">self.timer = setTimeout(() => &#123; </code>
+  <code class="tab2">self.moveTimeoutDiv(self);</code>
+  <code class="tab1">&#125;, 10);</code>
+  <code>&#125;</code>
+</pre>
+<div class="div-container">
+  <div #timeout></div>
+</div>
+<br /><br />
+<span class="sp-tip">requestAnimationFrame设置滚动：</span><br />
+<pre>
+    <code>@ViewChild("req", &#123; static: false &#125;) reqEl: ElementRef;</code>
+    <code>reqPosition: number = 0;</code>
+    <code>moveByRequestAnimationFrame() &#123;</code>
+    <code class="tab1">let self = this;</code>
+    <code class="tab1">window.requestAnimationFrame(() => &#123;</code>
+    <code class="tab2">self.moveReqDiv(self);</code>
+    <code class="tab1">&#125;);</code>
+    <code>&#125;</code>
+    <code>&nbsp;</code>
+    <code>moveReqDiv(self: any) &#123;</code>
+    <code class="tab1">self.reqPosition++;</code>
+    <code class="tab1">if (self.reqPosition == 350) &#123;</code>
+    <code class="tab2">self.reqPosition = 0;</code>
+    <code class="tab1">&#125;</code>
+    <code class="tab1">self.reqEl.nativeElement.style.marginLeft = `$&#123;self.reqPosition&#125;px`;</code>
+    <code class="tab1">window.requestAnimationFrame(() => &#123; </code>
+    <code class="tab2">self.moveReqDiv(self);</code>
+    <code class="tab1">&#125;);</code>
+    <code>&#125;</code>
+  </pre>
+<div class="div-container">
+  <div #req></div>
+</div>
+
+
+<span class="sp-tip">对比可明显感觉采用requestAnimationFrame方式的滚动效果更平滑，而采用setTimeout方式有跳帧的现象。</span><br />

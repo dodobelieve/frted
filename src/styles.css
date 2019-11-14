@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+
+.tab1::before {
+    content: "  ";
+}
+
+.tab2::before {
+    content: "    ";
+}
+
+pre {
+    background-color: #f5f5f5;
+}
+
+.sp-tip {
+    color: blue;
+    font-weight: bold;
+}

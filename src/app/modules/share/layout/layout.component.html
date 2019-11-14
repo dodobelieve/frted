@@ -1,0 +1,37 @@
+<nz-layout class="nz-layout-body">
+  <nz-header>
+    <div class="logo">FEs</div>
+    <ul nz-menu nzTheme="dark" nzMode="horizontal" class="header-menu">
+      <li nz-menu-item [nzSelected]="curMenu == 1" routerLink='/es/func'>Es2015</li>
+      <li nz-menu-item [nzSelected]="curMenu == 2" routerLink='/js/rqamfr'>Javascript</li>
+    </ul>
+  </nz-header>
+  <nz-layout>
+    <nz-sider nzWidth="200px" nzTheme="light">
+
+      <ul [hidden]="curMenu != 1" nz-menu nzMode="inline" class="sider-menu">
+        <li nz-menu-item routerLink='/es/func' nzSelected>
+          <span title>
+            <i nz-icon [nzType]="'user'"></i> functions</span>
+        </li>
+        <li nz-menu-item routerLink='/es/obj'>
+          <span title>
+            <i nz-icon [nzType]="'laptop'"></i> object</span>
+        </li>
+      </ul>
+
+      <ul [hidden]="curMenu != 2" nz-menu nzMode="inline" class="sider-menu">
+        <li nz-menu-item routerLink='/js/rqamfr' nzSelected>
+          <span title title="requestAnimationFrame">
+            <i nz-icon [nzType]="'user'"></i> requestAnimationFrame</span>
+        </li>
+      </ul>
+
+    </nz-sider>
+    <nz-layout class="inner-layout">
+      <nz-content>
+        <router-outlet></router-outlet>
+      </nz-content>
+    </nz-layout>
+  </nz-layout>
+</nz-layout>

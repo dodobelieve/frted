@@ -1,0 +1,128 @@
+<h2>function parseInt(s: string, radix?: number): number</h2>
+<span>将字符串转换为十进制整数</span><br />
+<span>s：需要转换的字符串</span><br />
+<span>radix?：传入字符串采用的进制数，范围2--36，不指定默认为10表示十进制。</span><br />
+<pre>
+    <code>parseInt('100',2) = 4</code>
+    <code>parseInt('100') = 100</code>
+    <code>parseInt('100a') = 100</code>
+    <code>parseInt(100a) error</code>
+    <code>parseInt('a00') = NaN</code>
+    <code>parseInt('') = NaN</code>
+    <code>parseInt(null) = NaN</code>
+</pre>
+
+<h2>function parseFloat(s: string): number</h2>
+<span>将字符串转换为浮点数</span><br />
+<span>s：需要转换的字符串</span><br />
+<pre>
+    <code>parseFloat('100') = 100</code>
+    <code>parseFloat('100.00') = 100</code>
+    <code>parseFloat('100.001a') = 100.001</code>
+    <code>parseFloat(100.001a) error</code>
+    <code>parseFloat('a100.001') = NaN</code>
+    <code>parseFloat('') = NaN</code>
+    <code>parseFloat(null) = NaN</code>
+</pre>
+
+<h2>function isNaN(number: number): boolean</h2>
+<span>判断给定值是否是数值</span><br />
+<span>number：待判断的数值</span><br />
+<pre>
+    <code>isNaN('100') = false</code>
+    <code>isNaN('100.00a') = true</code>
+    <code>isNaN(100.00a) error</code>
+    <code>isNaN('') = false</code>
+    <code>isNaN(null) = false</code>
+</pre>
+
+<h2>function isFinite(number: number): boolean;</h2>
+<span>检查其参数是否是有限大。</span><br />
+<span>number：待判断的参数</span><br />
+<pre>
+    <code>isFinite('1.22')) = true</code>
+    <code>isFinite('1.22a')) = false</code>
+    <code>isFinite(1.22a) error</code>
+    <code>isFinite(1/0) = false</code>
+    <code>isFinite(1/3) = true</code>
+</pre>
+
+<h2>function encodeURI(uri: string): string;</h2>
+<span>把字符串作为URI进行编码。(不会对本身属于URI的特殊字符进行编码)</span><br />
+<span>uri：需要编码的文本</span><br />
+<pre>
+    <code>encodeURI("https://github.com/dodobelieve?prp='最靓的仔'") = "https://github.com/dodobelieve?prp='%E6%9C%80%E9%9D%93%E7%9A%84%E4%BB%94'"</code>
+    <code>encodeURI("") = ""</code>
+    <code>encodeURI(",/?:@&=+$#") = ",/?:@&=+$#"</code>
+    <code>encodeURI("aa") = "aa"</code>
+</pre>
+
+<h2>function decodeURI(encodedURI: string): string;</h2>
+<span>对encodeURI()函数编码过的URI进行解码。</span><br />
+<span>encodedURI：编码后的URI</span><br />
+<pre>
+    <code>decodeURI("https://github.com/dodobelieve?prp='%E6%9C%80%E9%9D%93%E7%9A%84%E4%BB%94'") = "https://github.com/dodobelieve?prp='最靓的仔'"</code>
+    <code>decodeURI("") = ""</code>
+    <code>decodeURI("aa") = "aa"</code>
+</pre>
+
+<h2>function encodeURIComponent(uriComponent: string): string;</h2>
+<span>把字符串作为 URI 组件进行编码。(会对本身属于URI的特殊字符进行编码)</span><br />
+<span>uriComponent：需要编码的文本</span><br />
+<pre>
+    <code>encodeURIComponent("https://github.com/dodobelieve?prp='最靓的仔'") = "https%3A%2F%2Fgithub.com%2Fdodobelieve%3Fprp%3D'%E6%9C%80%E9%9D%93%E7%9A%84%E4%BB%94'"</code>
+    <code>encodeURIComponent("") = ""</code>
+    <code>encodeURIComponent(",/?:@&=+$#") = "%2C%2F%3F%3A%40%26%3D%2B%24%23"</code>
+    <code>encodeURIComponent("aa") = "aa"</code>
+</pre>
+
+<h2>function decodeURIComponent(encodedURIComponent: string): string;</h2>
+<span>对encodeURIComponent()函数编码的URI进行解码。</span><br />
+<span>encodedURIComponent：需要解码的文本</span><br />
+<pre>
+    <code>decodeURIComponent("https%3A%2F%2Fgithub.com%2Fdodobelieve%3Fprp%3D'%E6%9C%80%E9%9D%93%E7%9A%84%E4%BB%94'") = "https://github.com/dodobelieve?prp='最靓的仔'"</code>
+    <code>decodeURIComponent("https://github.com/dodobelieve?prp='%E6%9C%80%E9%9D%93%E7%9A%84%E4%BB%94'") = "https://github.com/dodobelieve?prp='最靓的仔'"</code>
+    <code>decodeURIComponent("") = ""</code>
+    <code>decodeURIComponent("%2C%2F%3F%3A%40%26%3D%2B%24%23") = ",/?:@&=+$#"</code>
+    <code>decodeURIComponent("aa") = "aa"</code>
+</pre>
+<span>对于通过encodeURI()编码的文本decodeURIComponent()也能正确解码： </span><br />
+<pre>
+    <code>decodeURIComponent("https://github.com/dodobelieve?prp='%E6%9C%80%E9%9D%93%E7%9A%84%E4%BB%94'") = "https://github.com/dodobelieve?prp='最靓的仔'"</code>
+</pre>
+<span>对于通过encodeURIComponent()编码的文本decodeURI()不能完全解码(特殊字符部分)： </span><br />
+<pre>
+    <code>decodeURI("https%3A%2F%2Fgithub.com%2Fdodobelieve%3Fprp%3D'%E6%9C%80%E9%9D%93%E7%9A%84%E4%BB%94'") = "https%3A%2F%2Fgithub.com%2Fdodobelieve%3Fprp%3D'最靓的仔'"</code>
+</pre>
+
+<h2>function escape(string: string): string;</h2>
+<span>对字符串进行编码</span><br />
+<span>string：需要编码的文本</span><br />
+<span class="sp-tip">(已不推荐使用，推荐使用encodeURI()或encodeURIComponent())</span><br />
+<pre>
+    <code>escape("https://github.com/dodobelieve?prp='最靓的仔'") = "https%3A//github.com/dodobelieve%3Fprp%3D%27%u6700%u9753%u7684%u4ED4%27"</code>
+    <code>escape("") = ""</code>
+    <code>escape(",/?:@&=+$#") = "%2C/%3F%3A@%26%3D+%24%23"</code>
+    <code>escape("aa") = "aa"</code>
+</pre>
+
+<h2>function unescape(string: string): string;</h2>
+<span>可对通过 escape() 编码的字符串进行解码。</span><br />
+<span>string：需要解码的文本</span><br />
+<span class="sp-tip">(已不推荐使用，推荐使用decodeURI()或decodeURIComponent())</span><br />
+<pre>
+    <code>unescape("https%3A//github.com/dodobelieve%3Fprp%3D%27%u6700%u9753%u7684%u4ED4%27") = "https://github.com/dodobelieve?prp='最靓的仔'"</code>
+    <code>unescape("") = ""</code>
+    <code>unescape("%2C%2F%3F%3A%40%26%3D%2B%24%23") = ",/?:@&=+$#"</code>
+    <code>unescape("aa") = "aa"</code>
+</pre>
+<span>对于通过encodeURI()或encodeURIComponent()编码的文本unescape()可能解码错误： </span><br />
+<pre>
+    <code>unescape("https%3A%2F%2Fgithub.com%2Fdodobelieve%3Fprp%3D'%E6%9C%80%E9%9D%93%E7%9A%84%E4%BB%94'") = "https://github.com/dodobelieve?prp='æéçä»'"</code>
+    <code>unescape("https://github.com/dodobelieve?prp='%E6%9C%80%E9%9D%93%E7%9A%84%E4%BB%94'") = "https://github.com/dodobelieve?prp='æéçä»'"</code>
+</pre>
+<span>对于通过escape()编码的文本decodeURI()和decodeURIComponent()可能报错： </span><br />
+<pre>
+    <code>decodeURI("https%3A//github.com/dodobelieve%3Fprp%3D%27%u6700%u9753%u7684%u4ED4%27") error: URI malformed</code>
+    <code>decodeURIComponent("https%3A//github.com/dodobelieve%3Fprp%3D%27%u6700%u9753%u7684%u4ED4%27") error: URI malformed </code>
+</pre>

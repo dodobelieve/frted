@@ -1,0 +1,128 @@
+<h2>toString(): string;</h2>
+<span>返回代表对象的字符串.</span><br />
+<pre>
+    <code>var o = &#123; &#125; ;</code>
+    <code>console.log(o.toString());</code>
+    <code>// [object Object]</code>
+</pre>
+<span>重写toString()</span><br />
+<pre>
+    <code>function man(name, age)  &#123;</code>
+    <code class="tab1">this.name = name;</code>
+    <code class="tab1">this.age = age;</code>
+    <code>&#125;</code>
+    <code>&nbsp;</code>
+    <code>man.prototype.toString = function () &#123;</code>
+    <code class="tab1">return "name:" + this.name + " age:" + this.age;</code>
+    <code>&#125;</code>
+    <code>&nbsp;</code>
+    <code>var jim = new man('jim', 20);</code>
+    <code>document.write(jim.toString());</code>
+    <code>//name:jim age:20</code>
+</pre>
+
+<h2>toLocaleString(): string;</h2>
+<span>返回日期时间对象的本地化字符串.</span><br />
+<pre>
+    <code>var o = new Date();</code>
+    <code>console.log(o.toLocaleString());</code>
+    <code>// Wed Nov 13 2019 11:33:50 GMT+0800 (中国标准时间)</code>
+</pre>
+
+<h2>valueOf(): Object;</h2>
+<span>获取对象的原始值.</span><br />
+<span>不同类型对象的valueOf()方法的返回值：</span>
+<span>Array----数组对象本身</span><br />
+<span>Boolean----布尔值</span><br />
+<span>Function----函数本身</span><br />
+<span>Number----数字值</span><br />
+<span>Object----对象本身，这是默认情况</span><br />
+<span>String----字符串值</span><br />
+<span>Date----存储的时间是从 1970 年 1 月 1 日午夜开始计的毫秒数 UTC。</span><br />
+<pre>
+    <code>var o = new Date();</code>
+    <code>console.log(o.valueOf());</code>
+    <code>// 1573616896634</code>
+</pre>
+<span>重写valueOf()</span><br />
+<pre>
+    <code>man.prototype.valueOf = function () &#123;</code>
+    <code class="tab1">return "name:" + this.name + " age:" + this.age;</code>
+    <code>&#125;</code>
+    <code>&nbsp;</code>
+    <code>var jim = new man('jim', 20);</code>
+    <code>document.write(jim.valueOf());</code>
+    <code>//name:jim age:20</code>
+</pre>
+
+<h2>hasOwnProperty(v: PropertyKey): boolean;</h2>
+<span>判断对象是否包含指定的自身（非继承）属性。</span><br />
+<pre>
+    <code>var book = &#123;</code>
+    <code class="tab1">name: "javascript 从入门到放弃",</code>
+    <code class="tab1">price: 13.50,</code>
+    <code class="tab1">getPrice: function (count) &#123;</code>
+    <code class="tab2">return this.price * count;</code>
+    <code class="tab1">&#125;,</code>
+    <code class="tab1">producer:  &#123;</code>
+    <code class="tab2">address: "地安门15号",</code>
+    <code class="tab2">tel: "9090950"</code>
+    <code class="tab1">&#125;,</code>
+    <code>&#125;,</code>
+    <code>console.log(book.hasOwnProperty('name'));  //true</code>
+    <code>console.log(book.hasOwnProperty('address'));   //false</code>
+    <code>console.log(book.producer.hasOwnProperty('address'));   //true</code>
+    <code>console.log(book.hasOwnProperty('getPrice'));  //true</code>
+    <code>&nbsp;</code>
+    <code>var yellowBook = Object.create(book, &#123; content: &#123; value: "ooxx", configurable: true &#125; , color: &#123; value: "yellow" &#125; &#125;);</code>
+    <code>console.log(yellowBook.hasOwnProperty('name'));   //false</code>
+    <code>console.log(yellowBook.hasOwnProperty('content'));   //true</code>
+</pre>
+
+<h2>getPrototypeOf(o: any): any;</h2>
+<span>获取对象的原型对象</span><br />
+<pre>
+    <code>console.log(Object.getPrototypeOf(yellowBook)); //book</code>
+    <code>console.log(Object.getPrototypeOf(book));  //Object</code>
+</pre>
+
+<h2>getOwnPropertyDescriptor(o: any, p: PropertyKey): PropertyDescriptor | undefined;</h2>
+<span>获取对象自身的属性描述符</span><br />
+<pre>
+    <code>console.log(Object.getOwnPropertyDescriptor(yellowBook, "content")); </code>
+    <code>// &#123;value: "ooxx", writable: false, enumerable: false, configurable: true&#125;  </code>
+    <code>console.log(Object.getOwnPropertyDescriptor(yellowBook, "color")); </code>
+    <code>// &#123;value: "yellow", writable: false, enumerable: false, configurable: false&#125;  </code>
+    <code>console.log(Object.getOwnPropertyDescriptor(yellowBook, "name"));  </code>
+    <code>// undefined </code>
+    <code>console.log(Object.getOwnPropertyDescriptor(book, "name"));  </code>
+    <code>// &#123;value: "javascript 从入门到放弃", writable: true, enumerable: true, configurable: true&#125;  </code>
+</pre>
+
+<h2>getOwnPropertyNames(o: any): string[];</h2>
+<span>获取对象自身包含的属性名称</span><br />
+<pre>
+    <code>console.log(Object.getOwnPropertyNames(yellowBook)); </code>
+    <code>// ["content", "color"]  </code>
+    <code>console.log(Object.getOwnPropertyNames(book));  </code>
+    <code>// ["name", "price", "getPrice", "producer"]</code>
+</pre>
+
+<h2>defineProperties(o: any, properties: PropertyDescriptorMap): any;</h2>
+<span>修改对象属性</span><br />
+<span>o：修改的对象</span><br />
+<span>properties：修改的属性</span><br />
+<pre>
+    <code>yellowBook.content = "xxoo"; </code>
+    <code>console.log(yellowBook.content);</code>
+    <code>// ooxx</code>
+    <code>Object.defineProperties(yellowBook, &#123; content: &#123; writable: "true" &#125; &#125;); </code>
+    <code>yellowBook.content = "xxoo"; </code>
+    <code>console.log(yellowBook.content);</code>
+    <code>// xxoo</code>
+</pre>
+<span class="sp-tip">对于configurable = false 的属性尝试修改会报错</span><br />
+<pre>
+    <code>Object.defineProperties(yellowBook, &#123; color: &#123; writable: "true" &#125; &#125;); </code>
+    <code>error： Uncaught TypeError: Cannot redefine property: color</code>
+</pre>

@@ -3,9 +3,10 @@ import { CommonModule } from '@angular/common';
 
 import { JscptRoutingModule } from './jscpt-routing.module';
 import { ReqamfrComponent } from './reqamfr/reqamfr.component';
+import { DivResizeComponent } from './div-resize/div-resize.component';
 
 @NgModule({
-  declarations: [ReqamfrComponent],
+  declarations: [ReqamfrComponent, DivResizeComponent],
   imports: [
     CommonModule,
     JscptRoutingModule

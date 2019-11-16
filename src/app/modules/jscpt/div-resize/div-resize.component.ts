@@ -58,6 +58,9 @@ export class DivResizeComponent implements OnInit, AfterViewInit {
     };
   }
 
+  /**
+   * 循环设置左侧固定宽度div的宽度
+   */
   changeWidthByRequestAnimationFrame() {
     let self = this;
     window.requestAnimationFrame(() => {
@@ -65,6 +68,10 @@ export class DivResizeComponent implements OnInit, AfterViewInit {
     });
   }
 
+  /**
+   * 设置左侧固定宽度div的宽度
+   * @param self 
+   */
   changeFixedDivWidth(self: any) {
     self.fixedDivWidth++;
     if (self.fixedDivWidth >= 350) {

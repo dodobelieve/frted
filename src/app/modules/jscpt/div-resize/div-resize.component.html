@@ -1,9 +1,101 @@
 <h2>div 绑定 resize 事件 </h2>
 
+<span>div并不支持resize事件，可以采用的方式是在div内部添加一个尺寸100%的iframe，通过监听iframe的resize事件来响应div的resize事件。</span><br />
+<span>以下示例，外部div采用flex布局，左侧紫色div用代码修改固定宽度，右侧棕色div自动占满剩余宽度。</span><br /><br />
+<span>代码演示用resize事件监测右侧棕色div宽度。</span><br />
+
+<span>html:</span><br />
+<pre>
+    <code>&lt;style&gt;</code>
+    <code class="tab1">.div-container &#123;</code>
+    <code class="tab2">width: 400px;</code>
+    <code class="tab2">height: 200px;</code>
+    <code class="tab2">margin: 10px 0 10px 0;</code>
+    <code class="tab2">display: flex;</code>
+    <code class="tab1">&#125;</code>
+    <code>&nbsp;</code>
+    <code class="tab1">.div-container>div &#123;</code>
+    <code class="tab2">height: 200px;</code>
+    <code class="tab1">&#125;</code>
+    <code>&nbsp;</code>
+    <code class="tab1">.div-container>div:first-child &#123;</code>
+    <code class="tab2">width: 100px;</code>
+    <code class="tab2">background-color: blueviolet;</code>
+    <code class="tab1">&#125;</code>
+    <code>&nbsp;</code>
+    <code class="tab1">.div-container>div:last-child &#123;</code>
+    <code class="tab2">flex: 1;</code>
+    <code class="tab2">width: 100px;</code>
+    <code class="tab2">background-color: blueviolet;</code>
+    <code class="tab1">&#125;</code>
+    <code>&nbsp;</code>
+    <code class="tab1">.size-watch &#123;</code>
+    <code class="tab2">width: 100%;</code>
+    <code class="tab2">height: 100%;</code>
+    <code class="tab2">position: relative;</code>
+    <code class="tab2">visibility: hidden;</code>
+    <code class="tab2">margin: 0;</code>
+    <code class="tab2">padding: 0;</code>
+    <code class="tab2">border: 0;</code>
+    <code class="tab1">&#125;</code>
+    <code>&lt;/style&gt;</code>
+    <code>&nbsp;</code>
+    <code>&lt;div class="div-container"&gt;</code>
+    <code class="tab">&lt;div #divFixed&gt;&lt;/div&gt;</code>
+    <code class="tab1">&lt;div #divFlex&gt;&lt;/div&gt;</code>
+    <code>&lt;/div&gt;</code>
+    <code>&lt;span&gt;棕色div宽度：&#123;&#123;</code><code>flexDivWidth&#125;&#125;px&lt;/span&gt;</code>
+</pre>
+
+<span>ts:</span><br />
+<pre>
+    <code>@ViewChild("divFixed", &#123; static: false &#125;) fixedEl: ElementRef;</code>
+    <code>@ViewChild("divFlex", &#123; static: false &#125;) flexEl: ElementRef;</code>
+    <code>fixedDivWidth: number = 100;</code>
+    <code>flexDivWidth: number = 300;</code>
+    <code>&nbsp;</code>
+    <code>ngAfterViewInit(): void &#123;</code>
+    <code class="tab1">this.resize(this.flexEl);</code>
+    <code class="tab1">this.changeWidthByRequestAnimationFrame();</code>
+    <code>&#125;</code>
+    <code>&nbsp;</code>
+    <code>//设置元素resize事件</code>
+    <code>resize(el: ElementRef) &#123;</code>
+    <code class="tab1">let self = this;</code>
+    <code class="tab1">const iframe = document.createElement('iframe');</code>
+    <code class="tab1">iframe.setAttribute('class', 'size-watch');</code>
+    <code class="tab1">el.nativeElement.appendChild(iframe);</code>
+    <code class="tab1">iframe.contentWindow.onresize = () => &#123;</code>
+    <code class="tab2">self.flexDivWidth = self.flexEl.nativeElement.clientWidth;</code>
+    <code class="tab1">&#125;;</code>
+    <code>&#125;</code>
+    <code>&nbsp;</code>
+    <code>//循环设置左侧固定宽度div的宽度</code>
+    <code>changeWidthByRequestAnimationFrame() &#123;</code>
+    <code class="tab1">let self = this;</code>
+    <code class="tab1">window.requestAnimationFrame(() => &#123;</code>
+    <code class="tab2">self.changeFixedDivWidth(self);</code>
+    <code class="tab1">&#125;);</code>
+    <code>&#125;</code>
+    <code>&nbsp;</code>
+    <code>//设置左侧固定宽度div的宽度</code>
+    <code>changeFixedDivWidth(self: any) &#123;</code>
+    <code class="tab1">self.fixedDivWidth++;</code>
+    <code class="tab1">if (self.fixedDivWidth >= 350) &#123;</code>
+    <code class="tab2">self.fixedDivWidth = 100;</code>
+    <code class="tab1">&#125;</code>
+    <code class="tab1">self.fixedEl.nativeElement.style.width = `$&#123;self.fixedDivWidth&#125;px`;</code>
+    <code class="tab1">window.requestAnimationFrame(() => &#123;</code>
+    <code class="tab2">self.changeFixedDivWidth(self);</code>
+    <code class="tab1">&#125;);</code>
+    <code>&#125;</code>
+    <code>&nbsp;</code>
+</pre>
+
+<span class="sp-tip">演示效果如下：</span><br />
 <div class="div-container">
     <div #divFixed></div>
     <div #divFlex></div>
-</div>
+</div><br />
 
-<br /><br />
-<span>棕色div宽度：{{flexDivWidth}}</span><br />
+<span>棕色div宽度：{{flexDivWidth}}px</span><br />

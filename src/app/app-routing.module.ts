@@ -11,6 +11,9 @@ const routes: Routes = [
   //javascript 
   { path: 'js', component: LayoutComponent, loadChildren: './modules/jscpt/jscpt.module#JscptModule' },
 
+  //alipay 
+  { path: 'al', component: LayoutComponent, loadChildren: './modules/alipay/alipay.module#AlipayModule' },
+
 ];
 
 @NgModule({

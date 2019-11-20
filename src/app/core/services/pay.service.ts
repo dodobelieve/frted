@@ -31,14 +31,14 @@ export class PayService {
     mc.quit_url = "https://dodobelieve.github.io/frted/#/es/func";
 
     let cc = new CommonConfig();
-    cc.app_id = "2019111869268104";
+    cc.app_id = "2016101600701564";
     cc.method = "alipay.trade.wap.pay";
     cc.sign = this.aliPrivateKey;
     cc.timestamp = this.util.dateFormat(new Date(), "yyyy-MM-dd HH:mm:ss");
     cc.biz_content = JSON.stringify(mc);
 
-    let url = "https://openapi.alipay.com/gateway.do";
-    return this.http.post(url, cc);
+    let url = "https://openapi.alipaydev.com/gateway.do";
+    return this.http.post(url, cc, { headers: { "Access-Control-Allow-Origin": "true" } });
   }
 
 
